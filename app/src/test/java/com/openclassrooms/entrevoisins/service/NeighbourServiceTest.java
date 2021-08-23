@@ -11,8 +11,10 @@ import org.junit.runners.JUnit4;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test on Neighbour service
@@ -45,6 +47,32 @@ public class NeighbourServiceTest {
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
+    }
+
+    @Test
+    public void isNeighbourAlreadyInFavoriteList()
+    {
+        List<Neighbour> neighbours = service.getNeighbours();
+        List<Neighbour> favoriteNeighbours = service.getFavoriteNeighbours();
+        Neighbour mockNeighbour = new Neighbour(28,"manu","https://i.pravatar.cc/150?u=a042581f4e29026704d","earth","0","nothing");
+
+        // Make sure mock neighbour doesn't exist in either list
+        assertFalse(neighbours.contains(mockNeighbour));
+        assertFalse(favoriteNeighbours.contains(mockNeighbour));
+        // Add mockNeighbour to main list
+        service.createNeighbour(mockNeighbour);
+        assertTrue(neighbours.contains(mockNeighbour));
+        // MockNeighbour is only in main list
+        boolean expectedAnswer = false;
+        boolean actualAnswer = service.neighbourIsAlreadyFavorite(mockNeighbour);
+        assertEquals(actualAnswer,expectedAnswer);
+        // MockNeighbour is in both lists
+        service.createFavoriteNeighbour(mockNeighbour);
+        assertTrue(favoriteNeighbours.contains(mockNeighbour));
+        expectedAnswer = true;
+        actualAnswer = service.neighbourIsAlreadyFavorite(mockNeighbour);
+        assertEquals(actualAnswer,expectedAnswer);
+
     }
 
 
