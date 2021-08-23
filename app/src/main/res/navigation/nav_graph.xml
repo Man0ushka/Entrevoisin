@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listNeighbourActivity3">
+
+    <activity
+        android:id="@+id/addNeighbourActivity"
+        android:name="com.openclassrooms.entrevoisins.ui.neighbour_list.AddNeighbourActivity"
+        android:label="activity_add_neighbour"
+        tools:layout="@layout/activity_add_neighbour" />
+    <activity
+        android:id="@+id/viewNeighbourActivity"
+        android:name="com.openclassrooms.entrevoisins.ui.neighbour_list.ViewNeighbourActivity"
+        android:label="activity_view_neighbour"
+        tools:layout="@layout/activity_view_neighbour" />
+    <fragment
+        android:id="@+id/neighbourFragment2"
+        android:name="com.openclassrooms.entrevoisins.ui.neighbour_list.NeighbourFragment"
+        android:label="fragment_neighbour_list"
+        tools:layout="@layout/fragment_neighbour_list" />
+    <activity
+        android:id="@+id/listNeighbourActivity3"
+        android:name="com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity"
+        android:label="activity_list_neighbour"
+        tools:layout="@layout/activity_list_neighbour" />
+</navigation>
