@@ -49,6 +49,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -134,9 +135,9 @@ public class ViewNeighbourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_neighbour);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("THIS IS A TEST");
-        toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
+        Objects.requireNonNull(toolbar.getNavigationIcon()).setTint(getResources().getColor(R.color.white));
 
         mApiService = DI.getNeighbourApiService();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -180,7 +181,7 @@ public class ViewNeighbourActivity extends AppCompatActivity {
         }
 
     }
-    public String changeImageResolution(String originalImg, int resolution)
+    public static String changeImageResolution(String originalImg, int resolution)
     {
         int indexFirst = originalImg.lastIndexOf("/");
         int indexLast = originalImg.indexOf("?");
