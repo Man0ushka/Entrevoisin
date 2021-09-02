@@ -3,25 +3,15 @@ package com.openclassrooms.entrevoisins.neighbour_list;
 
 
 
-import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ViewNeighbourActivity;
-import com.openclassrooms.entrevoisins.utils.AddFavoriteViewAction;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 import com.openclassrooms.entrevoisins.utils.ShowDetailAction;
 
@@ -37,10 +27,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -54,14 +41,14 @@ import static org.junit.Assert.assertThat;
 public class NeighboursListTest {
 
     @Rule
-    public IntentsTestRule<ListNeighbourActivity> mActivityRule =
+    public final IntentsTestRule<ListNeighbourActivity> mActivityRule =
             new IntentsTestRule<>(ListNeighbourActivity.class);
 
 
     // This is fixed
-    private static int ITEMS_COUNT = 12;
+    private static final int ITEMS_COUNT = 12;
 
-    private static int FAVORITE_ITEMS_COUNT = 0;
+    private static final int FAVORITE_ITEMS_COUNT = 0;
 
     private ListNeighbourActivity mActivity;
 

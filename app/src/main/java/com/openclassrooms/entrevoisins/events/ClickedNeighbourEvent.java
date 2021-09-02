@@ -6,8 +6,8 @@ public class ClickedNeighbourEvent {
     /**
      * Neighbour clicked
      */
-    public Neighbour neighbour;
-    public int tabPos;
+    public final Neighbour neighbour;
+    public final int tabPos;
 
     /**
      * Constructor.

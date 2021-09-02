@@ -1,7 +1,6 @@
 package com.openclassrooms.entrevoisins.utils;
 
 import android.view.View;
-import android.widget.Toolbar;
 
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;

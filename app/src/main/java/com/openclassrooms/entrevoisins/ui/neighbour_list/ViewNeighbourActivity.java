@@ -2,53 +2,25 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-import com.openclassrooms.entrevoisins.utilities.FileFunctions;
+import com.openclassrooms.entrevoisins.service.FavoriteNeighboursApiService;
 
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -56,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ViewNeighbourActivity extends AppCompatActivity {
-    private NeighbourApiService mApiService;
+    private FavoriteNeighboursApiService mApiService;
     @BindView(R.id.avatarImg)
     ImageView avatar;
 
@@ -106,12 +78,12 @@ public class ViewNeighbourActivity extends AppCompatActivity {
         if(mApiService.neighbourIsAlreadyFavorite(neighbour))
         {
 
-            mApiService.deleteFavoriteNeighbour(neighbour);
+            mApiService.deleteNeighbour(neighbour);
             addFavorite.setImageDrawable(getDrawable(R.drawable.ic_star_border_white_24dp));
         }
         else
         {
-            mApiService.createFavoriteNeighbour(neighbour);
+            mApiService.createNeighbour(neighbour);
             addFavorite.setImageDrawable(getDrawable(R.drawable.ic_star_white_24dp));
         }
 
@@ -136,12 +108,12 @@ public class ViewNeighbourActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("THIS IS A TEST");
         Objects.requireNonNull(toolbar.getNavigationIcon()).setTint(getResources().getColor(R.color.white));
 
-        mApiService = DI.getNeighbourApiService();
+        mApiService = (FavoriteNeighboursApiService) DI.getFavoriteNeighbourApiService();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        // GET THE DATA FROM THE CLICKED NEIGHBOUR
         if (getIntent()!=null)
         {
 

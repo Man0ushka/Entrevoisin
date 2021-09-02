@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 
 public class NeighbourFragment extends Fragment {
@@ -54,13 +55,19 @@ public class NeighbourFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("FRAG", "onCreate: you created a new fragment");
+        assert getArguments() != null;
+        int position = getArguments().getInt(KEY_POSITION, -1);
+        if(position==0)
         mApiService = DI.getNeighbourApiService();
+        else
+            mApiService = DI.getFavoriteNeighbourApiService();
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        assert getArguments() != null;
         int position = getArguments().getInt(KEY_POSITION, -1);
         View view;
         if(position==0)
@@ -73,7 +80,7 @@ public class NeighbourFragment extends Fragment {
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
         return view;
     }
 
@@ -81,11 +88,9 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() throws IOException {
+        assert getArguments() != null;
         int position = getArguments().getInt(KEY_POSITION, -1);
-        if(position==0)
         mNeighbours = mApiService.getNeighbours();
-        else if (position==1)
-        {
             // CHECK IF FILE FAVORITES EXISTS
 //            Gson gson = new Gson();
 //            Type listType = new TypeToken<ArrayList<Neighbour>>(){}.getType();
@@ -94,9 +99,6 @@ public class NeighbourFragment extends Fragment {
 //            mNeighbours = gson.fromJson(jsonStringFromFile,listType);
 //            else
 //                mNeighbours = new ArrayList<>();
-            mNeighbours=mApiService.getFavoriteNeighbours();
-
-        }
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours,position));
     }
 
@@ -130,6 +132,7 @@ public class NeighbourFragment extends Fragment {
     @Subscribe
     public void onClickedNeighbour(ClickedNeighbourEvent event)
     {
+        assert getArguments() != null;
         int position = getArguments().getInt(KEY_POSITION, -1);
         if(event.tabPos==position)
         {
@@ -152,21 +155,14 @@ public class NeighbourFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) throws IOException {
+        assert getArguments() != null;
         int position = getArguments().getInt(KEY_POSITION, -1);
-        if (position==event.tabPos)
+        if(event.tabPos==position || event.tabPos==0)
         {
-            if(position==0)
-            {
-                mApiService.deleteNeighbour(event.neighbour);
-                // If the neighbour is deleted in the main list, we delete it from the favorite list
-                mApiService.deleteFavoriteNeighbour(event.neighbour);
-
-            }
-            else if (position==1)
-                mApiService.deleteFavoriteNeighbour(event.neighbour);
+            mApiService.deleteNeighbour(event.neighbour);
+            initList();
         }
 
-        initList();
     }
 
 }
