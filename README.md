@@ -73,7 +73,7 @@ Total time: 6.317 secs
 
 + Now you just need to run the cmd "gradle build" in the app directory
 
-### Build the project using gradle
+### Execute the app on a mobile device
 
 + Once the project has been built, you can find a new subdirectory "build" in the app directory
 + You can then copy the ".apk" file (debug) and transfer it on your android mobile device to install the app
