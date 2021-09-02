@@ -9,7 +9,15 @@ Ce dépôt contient une mini-application pour le P3 du parcours **Grande École 
 ### What you’ll need
 + A favorite text editor or IDE
 + JDK 6 or later
-+ Install Gradle
++ Install Gradle / Build the project with gradle wrapper
+
+### Build the project using the gradle wrapper without installing gradle
+
++ You can build the project using the gradle wrapper by running the cmd: "gradlew build" in the app directory
++ This can be done without having gradle installed on your system as it will download and cache the Gradle binaries to build the project
++ You will however need to have JDK 6 or later installed on your system: https://www.oracle.com/java/technologies/java-platform.html
+
+### Build the project using gradle
 
 ### Install Gradle
 + **On Unix**
@@ -63,10 +71,17 @@ Total time: 6.317 secs
 
 ### Build the project using gradle
 
-+ Now you just need to run the cmd "gradle build"
-+ The project will now be built and you will have access to the "apk" files in the build folder at the root of the project
++ Now you just need to run the cmd "gradle build" in the app directory
 
 ### Build the project using gradle
 
-+ Alternatively you can build the project using the graddle wrapper by running the cmd: "gradlew build"
-+ This can be done without having gradle installed on your system as it will download and cache the Gradle binaries to build the project
++ Once the project has been built, you can find a new subdirectory "build" in the app directory
++ You can then copy the ".apk" file (debug) and transfer it on your android mobile device to install the app
+
+### Build the project on Android Studio
+
++ If you utilize Android Studio, you just need to copy the source code of the app and open it as an existing project
++ After syncing the files with gradle, you can build the project or launch it on your favorite emulated device
+
+
+
